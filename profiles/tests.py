@@ -30,33 +30,3 @@ class TestProfile:
         response = client.get(reverse('profiles:profile', kwargs={"username":'Testuser'}))
         assert response.context['profile'] == self.profile
         assertTemplateUsed(response, 'profile.html')
-
-"""
-@pytest.mark.django_db
-def test_profiles_index(client):
-    fake = Faker()
-    user = User.objects.create(username='Testuser')
-    profile = Profile.objects.create(
-        user = user,
-        favorite_city = fake.city(),
-        )
-    response = client.get('/profiles/')
-    print(response.context['profiles_list'][0])
-    assert response.context['profiles_list'][0] == profile
-    assertTemplateUsed(response, 'profiles_index.html')        
-
-@pytest.mark.django_db
-def test_profile(client): #profile.html  
-    fake = Faker()
-    user = User.objects.create(username='Testuser')
-    profile = Profile.objects.create(
-        user = user,
-        favorite_city = fake.city(),
-        )
-    response = client.get('/profiles/')
-    response = client.get(reverse('profiles:profile', kwargs={"username":'Testuser'}))
-    print(response.context['profile'])
-    print(profile)
-    assert response.context['profile'] == profile
-    assertTemplateUsed(response, 'profile.html')
-"""
