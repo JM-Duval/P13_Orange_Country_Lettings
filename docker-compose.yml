@@ -1,0 +1,10 @@
+version docker-compose.yml : '3' 
+services : 
+web : 
+build : . 
+commande : bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000" 
+container_name : dockerjm 
+volumes : 
+— .:/dockerjm 
+ports : 
+— « 8000:8000 » 
