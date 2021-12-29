@@ -41,6 +41,22 @@ jobs:
       - run:
           name: Run flake8
           command: flake8
+    build-docker:
+      docker:
+        - image: cimg/python@sha256:671fa6ebe57cc353e475b9e650d8a7ee2605c8b59cc9acf6f30cad6fed05df33 
+          auth:
+            username: 9363
+            password: $DOCKERHUB_PASSWORD
+      steps:
+        - checkout
+        - setup_remote_docker:
+            version: 19.03.13
+        - run:
+            name: build docker
+            command: docker build -t jmd/imagetest
+        - run:
+            name: run docker
+            command: docker run -p 8000:8000 jmd/imagetest
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -49,3 +65,9 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test
+      - build-docker:
+        requires:
+          - build-and-test
+        filters:
+          branches:
+            only:master
