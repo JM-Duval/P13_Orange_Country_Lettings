@@ -62,14 +62,12 @@ jobs:
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   version: 2
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
-    build_and_test:
-      jobs:
-        - test
-        - build:
-          requires:
-            - test
-          filters:
-            branches:
-              only: master
+  build_and_test:
+    jobs:
+      - test
+      - build:
+        requires:
+          - test
+        filters:
+          branches:
+            only: master
