@@ -14,7 +14,7 @@ orbs:
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
-  build-and-test: # This is the name of the job, feel free to change it to better match what you're trying to do!
+  test: # This is the name of the job, feel free to change it to better match what you're trying to do!
     # These next lines defines a Docker executors: https://circleci.com/docs/2.0/executor-types/
     # You can specify an image from Dockerhub or use one of the convenience images from CircleCI's Developer Hub
     # A list of available CircleCI Docker convenience images are available here: https://circleci.com/developer/images/image/cimg/python
@@ -41,33 +41,34 @@ jobs:
       - run:
           name: Run flake8
           command: flake8
-    build-docker:
-      docker:
-        - image: cimg/python@sha256:671fa6ebe57cc353e475b9e650d8a7ee2605c8b59cc9acf6f30cad6fed05df33 
-          auth:
-            username: 9363
-            password: $DOCKERHUB_PASSWORD
-      steps:
-        - checkout
-        - setup_remote_docker:
-            version: 19.03.13
-        - run:
-            name: build docker
-            command: docker build -t jmd/imagetest
-        - run:
-            name: run docker
-            command: docker run -p 8000:8000 jmd/imagetest
+  build:
+    docker:
+      - image: cimg/python@sha256:671fa6ebe57cc353e475b9e650d8a7ee2605c8b59cc9acf6f30cad6fed05df33 
+        auth:
+          username: 9363
+          password: DockerdockerJMDjmd53$*
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 19.03.13
+      - run:
+          name: build docker
+          command: docker build -t jmd/imagetest
+      - run:
+          name: run docker
+          command: docker run -p 8000:8000 jmd/imagetest
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
   sample: # This is the name of the workflow, feel free to change it to better match your workflow.
     # Inside the workflow, you define the jobs you want to run.
-    jobs:
-      - build-and-test
-      - build-docker:
-        requires:
-          - build-and-test
-        filters:
-          branches:
-            only:master
+    build_and_test:
+      jobs:
+        - test
+        - build:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
