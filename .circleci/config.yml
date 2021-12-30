@@ -58,7 +58,7 @@ jobs:
       - run:
           name: build docker
           command: |
-            echo "$DOCKERHUB_TOKEN" | docker login --username mydockerhub-user  --password-stdin
+            echo "$DOCKERHUB_TOKEN" | winpty docker login --username mydockerhub-user  --password-stdin
             docker build -t "$CIRCLE_SHA1" .
             docker tag "$CIRCLE_SHA1" "$DOCKERHUB_USERNAME"/oc_lettings:"$CIRCLE_SHA1"
             docker push "$DOCKERHUB_USERNAME"/oc_lettings:"$CIRCLE_SHA1"
