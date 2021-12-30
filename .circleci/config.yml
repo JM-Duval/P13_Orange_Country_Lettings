@@ -53,10 +53,10 @@ jobs:
           version: 19.03.13
       - run:
           name: build docker
-          command: docker build -t jmd/imagetest .
+          command: docker build -t jmd/imagetest2 .
       - run:
           name: run docker
-          command: docker run --rm -p 8000:8000 jmd/imagetest
+          command: docker run --rm -p 8000:8000 jmd/imagetest2
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
