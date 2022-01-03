@@ -6,14 +6,14 @@ RUN useradd -ms /bin/bash newuser
 RUN echo 'newuser:newpassword' | chpasswd
 
 USER newuser
-WORKDIR /dockerjm
+WORKDIR ${dockerjm}
 
 ENV DEBUG=False
 ENV PORT=8000
 
-ADD . /dockerjm
+ADD . $dockerjm
 
-COPY requirements.txt .
+COPY \$dockerjm requirements.txt .
 
 RUN pip install -r requirements.txt
 ENV PATH="/dockerjm:${PATH}"
