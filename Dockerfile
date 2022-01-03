@@ -15,7 +15,7 @@ ADD . /dockerjm
 COPY requirements.txt .
 
 RUN pip install -r requirements.txt
-ENV PATH="/home/myuser/.local/bin:${PATH}"
+ENV PATH="/dockerjm:${PATH}"
 COPY . /dockerjm
 
 EXPOSE 8000
