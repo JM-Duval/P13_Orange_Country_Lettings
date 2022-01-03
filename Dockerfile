@@ -2,21 +2,22 @@ FROM python:3
 
 RUN pip install --upgrade pip
 
-RUN adduser myuser
-USER myuser
+RUN useradd -ms /bin/bash newuser
+RUN echo 'newuser:newpassword' | chpasswd
 
-WORKDIR /dockerjm
+USER newuser
+WORKDIR /home/newuser
 
 ENV DEBUG=False
 ENV PORT=8000
 
-ADD . /dockerjm
+ADD . /home/newuser
 
 COPY requirements.txt .
 
 RUN pip install -r requirements.txt
-ENV PATH="/home/myuser:${PATH}"
-COPY . /dockerjm
+ENV PATH="/home/newuser:${PATH}"
+COPY . /home/newuser
 
 EXPOSE 8000
 
