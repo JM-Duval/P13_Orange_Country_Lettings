@@ -11,9 +11,9 @@ WORKDIR /dockerjm
 ENV DEBUG=False
 ENV PORT=8000
 
-ADD . $dockerjm
+ADD . /dockerjm
 
-COPY \$dockerjm requirements.txt .
+COPY requirements.txt .
 
 RUN pip install -r requirements.txt
 ENV PATH="/dockerjm:${PATH}"
