@@ -63,8 +63,8 @@ jobs:
             password: ${{ DOCKERHUB_USER.DOCKERHUB_PASSWORD }}
           command: |
             docker build -t "$CIRCLE_SHA1" .
-            docker tag oc_lettings_site:"$CIRCLE_SHA1" "$DOCKERHUB_USERNAME"/oc_lettings_site:"$CIRCLE_SHA1"
-            docker push "$DOCKERHUB_USERNAME"/oc_lettings_site:"$CIRCLE_SHA1"
+            docker tag "$CIRCLE_SHA1" oc_lettings_site/"$CIRCLE_SHA1":latest
+            docker push oc_lettings_site/"$CIRCLE_SHA1":latest
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
