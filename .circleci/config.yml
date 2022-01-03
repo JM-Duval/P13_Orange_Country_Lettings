@@ -62,7 +62,7 @@ jobs:
             username: ${{ DOCKERHUB_USER.DOCKERHUB_USERNAME }}
             password: ${{ DOCKERHUB_USER.DOCKERHUB_PASSWORD }}
           command: |
-            echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
+            echo | set /p="my_password" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
             docker build -t "$CIRCLE_SHA1" .
             docker tag "$CIRCLE_SHA1" oc_lettings_site/"$CIRCLE_SHA1":latest
             docker push oc_lettings_site/"$CIRCLE_SHA1":latest
