@@ -16,6 +16,7 @@ ADD . /home/newuser
 COPY requirements.txt .
 
 RUN pip install -r requirements.txt
+ENV PATH="/home/newuser:${/home/newuser//./_}"
 COPY . /home/newuser
 
 EXPOSE 8000
