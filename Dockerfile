@@ -1,5 +1,10 @@
 FROM python:3
 
+RUN pip install --upgrade pip
+
+RUN adduser -D myuser
+USER myuser
+
 WORKDIR /dockerjm
 
 ENV DEBUG=False
@@ -10,7 +15,7 @@ ADD . /dockerjm
 COPY requirements.txt .
 
 RUN pip install -r requirements.txt
-
+ENV PATH="/home/myuser/.local/bin:${PATH}"
 COPY . /dockerjm
 
 EXPOSE 8000
