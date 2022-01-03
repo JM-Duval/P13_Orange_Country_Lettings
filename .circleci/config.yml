@@ -59,10 +59,10 @@ jobs:
           name: build docker
           uses: docker/login-action@v1
           with:
-            username: ${{ DOCKERHUB_USER.DOCKERHUB_USERNAME }}
-            password: ${{ DOCKERHUB_USER.DOCKERHUB_PASSWORD }}
+            username: ${{ secrets.DOCKERHUB_USERNAME }}
+            password: ${{ secrets.DOCKERHUB_PASSWORD }}
           command: |
-            Get-Content password1.txt | docker login --username my_username --password-stdin
+            echo "$DOCKERHUB_TOKEN" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin
             docker build -t "$CIRCLE_SHA1" .
             docker tag "$CIRCLE_SHA1" oc_lettings_site/"$CIRCLE_SHA1":latest
             docker push oc_lettings_site/"$CIRCLE_SHA1":latest
