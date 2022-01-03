@@ -2,7 +2,7 @@ FROM python:3
 
 RUN pip install --upgrade pip
 
-RUN adduser -D myuser
+RUN adduser myuser
 USER myuser
 
 WORKDIR /dockerjm
