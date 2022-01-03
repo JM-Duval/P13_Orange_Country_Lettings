@@ -6,7 +6,7 @@ RUN useradd -ms /bin/bash newuser
 RUN echo 'newuser:newpassword' | chpasswd
 
 USER newuser
-WORKDIR $dockerjm
+WORKDIR /dockerjm
 
 ENV DEBUG=False
 ENV PORT=8000
