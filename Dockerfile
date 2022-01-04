@@ -1,23 +1,17 @@
-FROM python:3
+FROM python:3.8
 
-RUN pip install --upgrade pip
-
-RUN useradd -ms /bin/bash newuser
-RUN echo 'newuser:newpassword' | chpasswd
-
-USER newuser
-WORKDIR /oc_lettings_site
+WORKDIR /oc_lettings
 
 ENV DEBUG=False
 ENV PORT=8000
 
-ADD . /oc_lettings_site
+ADD . /oc_lettings
 
 COPY requirements.txt .
 
 RUN pip install -r requirements.txt
-ENV PATH="/oc_lettings_site:${PATH}"
-COPY . /oc_lettings_site
+
+COPY . /oc_lettings
 
 EXPOSE 8000
 
