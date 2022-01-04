@@ -60,7 +60,7 @@ jobs:
       - run:
           name: build docker image
           command: |
-            echo $DOCKERHUB_PASSWORD | winpty docker login --username $DOCKERHUB_USERNAME --password-stdin
+            docker login -u="${DOCKER_USERNAME}" -p="${DOCKER_PASSWORD}"
             docker build -t $CIRCLE_SHA1 .
             docker tag $CIRCLE_SHA1 oc_lettings_site/$CIRCLE_SHA1:latest
             docker push oc_lettings_site/$CIRCLE_SHA1:latest
