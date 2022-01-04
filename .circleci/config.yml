@@ -62,10 +62,10 @@ jobs:
       - checkout
       - run:
           name: create venv and install dependencies
-            command: |
-              python3 -m venv venv
-              . venv/bin/activate
-              pip install -r requirements.txt
+          command: |
+            python3 -m venv venv
+            . venv/bin/activate
+            pip install -r requirements.txt
       - setup_remote_docker
       - run:
           name: build docker image
