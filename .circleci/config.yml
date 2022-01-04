@@ -54,7 +54,7 @@ jobs:
       #- image: cimg/python@sha256:671fa6ebe57cc353e475b9e650d8a7ee2605c8b59cc9acf6f30cad6fed05df33 
       - image: circleci/buildpack-deps:stretch
         auth:
-          username: mydockerhub-9363
+          username: mydockerhub-user
           password: $DOCKERHUB_PASSWORD
     steps:
       - checkout
@@ -66,8 +66,8 @@ jobs:
           with:
             username: ${{ secrets.DOCKERHUB_USERNAME }}
             password: ${{ secrets.DOCKERHUB_TOKEN }}
-          command: |
-            echo | set /p="my_password" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
+          command: | 
+            echo "$MY_PASSWORD" | docker login --username "$DOCKERHUB_USERNAME" --password-stdin
             docker build -t $CIRCLE_SHA1 .
             docker tag $CIRCLE_SHA1 oc_lettings_site/$CIRCLE_SHA1:latest
             docker push oc_lettings_site/$CIRCLE_SHA1:latest
