@@ -96,7 +96,7 @@ workflows:
             branches:
               only: master
       - deploy:
-        requires:
+          requires:
             - test
             - build
           filters:
