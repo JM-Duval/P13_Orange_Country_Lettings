@@ -78,8 +78,9 @@ jobs:
           command: |
             sudo curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a oclettings-ranga web
-            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a oclettings-ranga web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a oc-lettings-jmd-1 web
+            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a oc-lettings-jmd-1 web
+
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
@@ -87,16 +88,16 @@ workflows:
   version: 2
   build-and-test:
     jobs:
-      #- test
+      - test
       - build:
-          #requires:
-          #  - test
+          requires:
+            - test
           filters:
             branches:
               only: master
       - deploy:
           requires:
-            #- test
+            - test
             - build
           filters:
             branches:
