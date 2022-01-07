@@ -77,7 +77,7 @@ jobs:
           name: Build app and send Docker IMG to Heroku
           command: |
             sudo curl https://cli-assets.heroku.com/install.sh | sh
-            heroku container:push -a oc-lettings-jmd-1 web
+            heroku container:login
             
 
 # Invoke jobs via workflows
