@@ -76,7 +76,7 @@ jobs:
       - run:
           name: Build app and send Docker IMG to Heroku
           command: |
-            npm i -g heroku
+            curl https://cli-assets.heroku.com/install.sh | sh
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:login
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:push -a oc-lettings-jmd-1 web
             HEROKU_API_KEY=${HEROKU_TOKEN} heroku container:release -a oc-lettings-jmd-1 web
