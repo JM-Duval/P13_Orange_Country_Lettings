@@ -77,10 +77,6 @@ jobs:
           name: Build app and send Docker IMG to Heroku
           command: |
             sudo curl https://cli-assets.heroku.com/install.sh | sh
-            HEROKU_API_KEY=${HEROKU_PASSWORD} heroku container:login
-            HEROKU_API_KEY=${HEROKU_PASSWORD} heroku container:push -a oc-lettings-jmd-1 web
-            HEROKU_API_KEY=${HEROKU_PASSWORD} heroku container:release -a oc-lettings-jmd-1 web
-
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
