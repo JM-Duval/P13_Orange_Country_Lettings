@@ -3,6 +3,7 @@ from . import views
 
 app_name = 'lettings'
 
+
 def trigger_error(request):
     division_by_zero = 1 / 0
 
