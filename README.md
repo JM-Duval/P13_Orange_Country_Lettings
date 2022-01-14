@@ -105,11 +105,11 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 		- CircleCi
 		- DockerHub
 		- Heroku
-		
+		- Sentry
 
 
 *****les étapes nécessaires pour effectuer le déploiement*****	
-	2 - CircleCi
+	1 - CircleCi
 	Connecter vous à CircleCi
 	Puis accéder à la page de configuration du projet: https://app.circleci.com/projects/
 	Une fois sur la page Projet, sélectionnez le projet que vous utilisez (dans notre cas P13_Orange_Country_Lettings).
@@ -145,12 +145,28 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 	    Pour "Value*", copiez le TOKEN 	
 	    Cliquez ensuite sur "Add Environment Variable"
 
-	3 - Heroku
+	2 - Heroku
 	  Afin de créer une app sur Heroku, sur votre terminal tapez: "heroku create <nom-de-votre-app>"
 	  Puis sur le fichier config.yml, dans la partie "deploy", remplacer:
 		- le nom de l'ancienne application "oc-lettings-jmd-1"
 		- par le nom de votre application. 
+	  Changer également le nom de l'application dans le fichier de configuration du projet. Pour cela, dans 
+	  settings.py, changez le nom de l'application au niveau de "ALLOWED_HOSTS".
 	
+	3 - Sentry
+	  Pour la configuration de Python vers Sentry, suivez les instructions suivant le site ci dessous: 
+	  https://docs.sentry.io/platforms/python/guides/django/	
+	  Afin de ne pas stocker les identifiants Sentry dans le code source, suivre les 2 étapes ci dessous:
+		a - créez une variable d'environnement dans Heroku qui va stocker l'ID de sentry
+		  heroku > oc-lettings-jmd-1 > settings > Config Vars
+			Dans KEY : KEY_SENTRY
+			Dans VALUE : copiez le code dsn (venant de settings) proposé
+		b - configurez les settings pour que l'os capte les ID que nous venons de configurer
+		  Dans le ficher 'settings' remplacez la ligne :
+			- dsn=...
+	  	  Par
+			- dsn=os.getenv('KEY_SENTRY') 
+
 	Voila! La configuration est établie pour le déploiement ;-), vous n'avez plus qu'à réaliser un push sur Git
 	du projet pour que le déploiement se fasse en automatique. 
 	
